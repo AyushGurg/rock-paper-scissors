@@ -1,3 +1,23 @@
 body {
     background-color: black;
 }
+
+
+p {
+    color: aqua;
+}
+
+#usrScore {
+    color: blueviolet;
+}
+#compScore {
+    color:red;
+}
+
+.result {
+    color: antiquewhite;
+}
+
+h1, h2 {
+    color:bisque
+}

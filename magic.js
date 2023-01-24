@@ -1,63 +1,107 @@
-function get_computer_choice() {
+
+const WIN = 5;
+let playerChoices = document.querySelectorAll("button");
+let chosen = "";
+
+let usrScore = 0;
+let compScore = 0;
+
+let winner;
+let result = document.querySelector(".result");
+
+function getComputerChoice() {
     const option = ['ROCK', 'PAPER', 'SCISSORS'];
     return option[Math.round(Math.random() * (option.length - 1))];
 }
 
 
-function player_choice() {
-    let choice = null; 
-    do {
-         choice = prompt('Pick!');
-         choice = choice.toUpperCase();
-    } while (!(choice === 'ROCK' || choice === 'SCISSORS' || choice === 'PAPER'));
-    return choice;
-}
-
-function decide_winner(comp,player) {
-    console.log(player);
-    console.log(comp);
-    switch (player) {
+function playRound(usrChoice,compChoice) {
+    switch (usrChoice) {
         case 'ROCK':
-            if ( comp === 'SCISSORS')
+            if ( compChoice === 'SCISSORS')
             {
+                result.textContent = "Player Chose Rock, Computer Chose Scissors"
                 console.log("Youre the winner!!");
+                usrScore++;
+                winner = document.querySelector("#usrScore");
+                winner.textContent = usrScore;
             }
-            else if (comp === 'PAPER') {
+            else if (compChoice === 'PAPER') {
+                result.textContent = "Player Chose Rock, Computer Chose Paper."
                 console.log("Computer wins!!");
+                compScore++;
+                winner = document.querySelector("#compScore");
+                winner.textContent = compScore;
             }
             else{
                 console.log("Tie!!");
+                result.textContent = "Tie";
             }
             break;
         case 'PAPER':
-            if (comp === 'ROCK')
+            if (compChoice === 'ROCK')
             {
+                result.textContent = "Player Chose Paper, Computer Chose Rock."
                 console.log("Youre the winner!!");
+                usrScore++;
+                winner = document.querySelector("#usrScore");
+                winner.textContent = usrScore;
             }
-            else if (comp === 'SCISSORS') {
+            else if (compChoice === 'SCISSORS') {
+                result.textContent = "Player Chose Paper, Computer Chose Scissors."
                 console.log("Computer wins!!");
+                compScore++;
+                winner = document.querySelector("#compScore");
+                winner.textContent = compScore;
             }
             else{
                 console.log("Tie!!");
+                result.textContent = "Tie";
             }
             break;
         case 'SCISSORS':
-            if (comp === 'PAPER')
+            if (compChoice === 'PAPER')
             {
+                result.textContent = "Player Chose Scissors, Computer Chose Paper."
                 console.log("Youre the winner!!");
+                usrScore++;
+                winner = document.querySelector("#usrScore");
+                winner.textContent = usrScore;
             }
-            else if (comp === 'ROCK') {
+            else if (compChoice === 'ROCK') {
+                result.textContent = "Player Chose Scissors, Computer Chose Rock."
                 console.log("Computer wins!!");
+                compScore++;
+                winner = document.querySelector("#compScore");
+                winner.textContent = compScore;
             }
             else{
                 console.log("Tie!!");
+                result.textContent = "Tie";
             }
             break;
-        default:
-            
+        default:          
             break;
     }
-
 }
 
-decide_winner(get_computer_choice(),player_choice());
+
+playerChoices.forEach((choice) => {
+    choice.addEventListener("click", () => {
+        chosen = choice.id;
+        if (usrScore < WIN && compScore < WIN) {
+            playRound(chosen,getComputerChoice());        
+        }
+        else {
+            if (usrScore == WIN) {
+                result.textContent = " Player wins!!";
+            }
+            else {
+                result.textContent = " Computer wins :c";
+            }
+        }
+        
+    });
+});
+
+
